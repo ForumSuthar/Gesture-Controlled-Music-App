@@ -35,6 +35,13 @@ struct RGB {
   byte b;
 };
 
+float X, Y, Z;
+struct accel {
+  float shake;
+  float Y;
+  float Z;
+};
+
 RGB variable = { 255 , 255 , 255 };
 
 int  sensorTemp = 0;
@@ -43,7 +50,7 @@ int  sensorTemp = 0;
 //Constants definition
 //It is a good practice use capital letters to define constants
 
-const int SHAKE_THRESHOLD = 30;
+const int SHAKE_THRESHOLD = 20;
 const unsigned int BLINK_DURATION=2000;
 
 //Variables definition   
@@ -84,7 +91,7 @@ void error(const __FlashStringHelper*err) {
   while (1);
 }
 
-float getTotalAccel();
+accel getTotalAccel();
 /**************************************************************************/
 /*!
     @brief  Sets up the HW an the BLE module (this function is called
@@ -164,7 +171,7 @@ void setup(void)
 void loop(void)
 {
 
-if(getTotalAccel()>SHAKE_THRESHOLD)
+/*if(getTotalAccel()>SHAKE_THRESHOLD)
   {
   Serial.println("shake");  
   char output[8];
@@ -173,49 +180,56 @@ if(getTotalAccel()>SHAKE_THRESHOLD)
   Serial.println(data);
   data.toCharArray(output,8);
   ble.print(data);
-  }
-
-
-if(CircuitPlayground.motionX() < 0 ){
-  Serial.println("shake");  
-  char output[8];
-  String data = "";
-  data = "right";
-  Serial.println(data);
-  data.toCharArray(output,8);
-  ble.print(data);
-  }
-
-if(CircuitPlayground.motionY() < 0 ){
-  Serial.println("shake");  
-  char output[8];
-  String data = "";
-  data = "left";
-  Serial.println(data);
-  data.toCharArray(output,8);
-  ble.print(data);
-  }
-
-delay(1000);
-  float X, Y, Z;
+  }*/
   X = CircuitPlayground.motionX();
   Y = CircuitPlayground.motionY();
   Z = CircuitPlayground.motionZ();
 
-  Serial.print("X: ");
-  Serial.print(X);
-  Serial.print("  Y: ");
-  Serial.print(Y);
-  Serial.print("  Z: ");
-  Serial.println(Z);
+  /*Serial.print(getX()); Serial.print("\t");
+  Serial.print(getY()); Serial.print("\t");
+  Serial.print(getZ()); Serial.println();
+  delay(10);
+*/
+ accel m = getTotalAccel();
+  if(m.shake>20){
+      char output[8];
+      String data = "";
+      data = "shake";
+      Serial.println(data);
+      data.toCharArray(output,8);
+      ble.print(data);
+      delay(1000);
+    }
+  if(m.Z<4 && m.Y>8){  //right tilt
+    if(Y<-8 && X<2){
+      char output[8];
+      String data = "";
+      data = "next";
+      Serial.println(data);
+      data.toCharArray(output,8);
+      ble.print(data);
+      delay(1000);
+      }
+    else if(Y>8 && X<2){  //left tilt
+      char output[8];
+      String data = "";
+      data = "prev";
+      Serial.println(data);
+      data.toCharArray(output,8);
+      ble.print(data);
+      delay(1000);
+      }
+    
+    }
 }
 
-float getTotalAccel() 
+accel getTotalAccel()
 { 
   // Compute total acceleration 
   float X = 0; 
   float Y = 0; 
   float Z = 0; 
+  accel val;
   for (int i=0; i<10; i++) 
   { 
   X += CircuitPlayground.motionX(); 
@@ -226,12 +240,15 @@ float getTotalAccel()
   Y /= 10; 
   Z /= 10; 
   
-  float accel = sqrt(X*X + Y*Y + Z*Z);
+  float a = sqrt(X*X + Y*Y + Z*Z);
+  val.shake = a;
+  val.Y = sqrt(Y*Y);
+  val.Z = sqrt(Z*Z);
  
-  Serial.println(accel);
+ // Serial.println(accel);
  
-  delay(100);
-  return accel;
+  //delay(100);
+  return val;
   }
 
   

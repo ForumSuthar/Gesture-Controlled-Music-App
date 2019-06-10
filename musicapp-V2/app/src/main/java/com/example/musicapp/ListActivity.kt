@@ -14,7 +14,7 @@ var songList: MutableList<String> = ArrayList()
 
 class ListActivity : AppCompatActivity() {
 
-    //var plantlist: MutableList<Plants> = mutableListOf<Plants>()
+
 
     var list_music: ListView? = null
     var adapter: MusicAdapter? = null
@@ -24,7 +24,10 @@ class ListActivity : AppCompatActivity() {
         setContentView(R.layout.music_list_layout)
 
         list_music = findViewById<ListView>(R.id.myListView) as ListView
-        addsongs()
+        if(songList.isEmpty()){
+            addsongs()
+        }
+
         var adapter = MusicAdapter(songList, this)
         list_music?.adapter = adapter
 
@@ -32,10 +35,7 @@ class ListActivity : AppCompatActivity() {
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val item = songList.get(position)
                 val intent = Intent(this@ListActivity, MusicPlayer::class.java)
-                //intent.putExtra("name",item.name)
-                //intent.putExtra("water",item.water.toString())
-                // intent.putExtra("last_water",item.last_watered.toString())
-                //based on item add info to intent
+
                 intent.putExtra("song", item)
                 intent.putExtra("position", position)
                 startActivity(intent)
@@ -49,7 +49,6 @@ class ListActivity : AppCompatActivity() {
 
 fun addsongs(){
     val fields = R.raw::class.java.fields
-
     for ( i in fields.indices) {
         songList.add (fields[i].name)
         Log.i("fields", fields[i].name)

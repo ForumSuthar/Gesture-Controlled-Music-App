@@ -5,29 +5,28 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SignUpActivity">
+        tools:context=".SignUpActivity" android:background="@drawable/teal3">
 
     <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="290dp"
+            android:layout_height="48dp"
             android:inputType="textEmailAddress"
             android:ems="10"
             android:id="@+id/editText_user"
             tools:text="Email id"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textAlignment="viewStart"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="21dp"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.534"
             android:autofillHints="" android:layout_marginTop="194dp" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="32dp" app:layout_constraintBottom_toTopOf="@+id/editText_password"/>
 
     <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="290dp"
+            android:layout_height="47dp"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/editText_password"
@@ -38,14 +37,14 @@
             android:layout_marginStart="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="25dp"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.56"
             android:autofillHints=""
             app:layout_constraintTop_toBottomOf="@+id/editText_user" android:layout_marginBottom="80dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_sign_up"/>
 
     <Button
             android:text="@string/sign_up"
-            android:layout_width="416dp"
+            android:layout_width="194dp"
             android:layout_height="64dp"
             android:id="@+id/btn_sign_up"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,9 +52,9 @@
             android:layout_marginTop="83dp"
             app:layout_constraintTop_toBottomOf="@+id/btn_login"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.497"
             android:textStyle="bold"
-            android:textSize="24sp" android:layout_marginBottom="228dp"/>
+            android:textSize="24sp" android:layout_marginBottom="252dp" style="@style/Widget.AppCompat.Button"/>
 
 
 </android.support.constraint.ConstraintLayout>

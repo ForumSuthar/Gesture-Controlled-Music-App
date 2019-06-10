@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" android:theme="@style/AppTheme"
+                style="@android:style/TextAppearance.Material.Widget.IconMenu.Item"
+                android:background="@drawable/teal3">
 
     <TextView
             android:text="TextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="56dp" android:id="@+id/textView"
             android:layout_alignParentTop="true" android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true" android:textSize="24sp" android:layout_marginEnd="0dp"
-            android:layout_marginRight="0dp"/>
+            android:layout_alignParentLeft="true" android:textSize="24sp" android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp" android:textStyle="bold|italic"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" android:layout_marginLeft="34dp"
+            android:layout_marginStart="34dp" android:paddingTop="7dp"/>
 </RelativeLayout>
